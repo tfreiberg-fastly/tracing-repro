@@ -3,6 +3,9 @@ use tracing_subscriber::{filter::EnvFilter, fmt, prelude::*, util::SubscriberIni
 
 fn main() {
     tracing_subscriber::registry()
+        // works with global filter
+        // .with(fmt::Layer::default().and_then(EnvFilter::new("target1[span1]")))
+        // bug with per-layer filter
         .with(fmt::Layer::default().with_filter(EnvFilter::new("target1[span1]")))
         .init();
     log_trace_for_target_and_field("val1");
